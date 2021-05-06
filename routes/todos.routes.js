@@ -1,0 +1,45 @@
+const express = require('express');
+const Todo = require('../models/Todo.model');
+const router = express.Router();
+
+router.get("/", (req, res, next) => {
+  Todo.find()
+  .then(todos =>  res.status(200).json(todos))
+  .catch(err => res.status(500).json(err))
+})
+
+router.get("/:id", (req, res, next) => {
+  const { id } = req.params;
+  Todo.findOne({ _id: id })
+  .then(todo => res.status(200).json(todo))
+  .catch(err => res.status(500).json(err))
+})
+
+router.post("/", (req, res, next) => {
+  const { name, description, dueDate, priority } = req.body;
+
+  if(!name){
+    return res.status(400).json({ message: "Name is required"});
+  }
+
+  Todo.create({ name, description, dueDate, priority })
+  .then(todo => res.status(200).json(todo))
+  .catch(err => res.status(500).json(err))
+})
+
+router.put("/:id", (req, res, next) => {
+  const { id } = req.params;
+  Todo.findOneAndUpdate({ _id: id }, req.body, { new: true })
+  .then(todo => res.status(200).json(todo))
+  .catch(err => res.status(500).json(err))
+})
+
+router.delete("/:id", (req, res, next) => {
+  const { id } = req.params;
+  Todo.findOneAndRemove({ _id: id })
+  .then(() => res.status(200).json({ message: `Todo ${id} deleted 🗑`}))
+  .catch(err => res.status(500).json(err))
+})
+
+
+module.exports = router;

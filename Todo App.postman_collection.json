@@ -1,0 +1,127 @@
+{
+	"info": {
+		"_postman_id": "5b0301d4-5865-4d7f-82e5-1c4976efb684",
+		"name": "Todo App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get todos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{Base url}}/todos",
+					"host": [
+						"{{Base url}}"
+					],
+					"path": [
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create todo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Todo 1\",\n    \"description\": \"Description\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/todos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get todo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/todos/6093b243519ef540db4e60c4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"todos",
+						"6093b243519ef540db4e60c4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update todo",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Create database models\",\n    \"description\": \"Nueva description\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base url}}/todos/6093b243519ef540db4e60c4",
+					"host": [
+						"{{Base url}}"
+					],
+					"path": [
+						"todos",
+						"6093b243519ef540db4e60c4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete todo",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{Base url}}/todos/6093b243519ef540db4e60c4",
+					"host": [
+						"{{Base url}}"
+					],
+					"path": [
+						"todos",
+						"6093b243519ef540db4e60c4"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "Base url",
+			"value": "http://localhost:5000/api"
+		}
+	]
+}
