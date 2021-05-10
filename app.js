@@ -10,11 +10,14 @@ const app = express();
 require('./configs/middleware.config')(app);
 require('./configs/cors.config')(app);
 
-// Session config
+// Session config + Passport
 require('./configs/session.config')(app);
+require('./configs/passport.config')(app);
 
 const todoRouter = require('./routes/todos.routes');
+const authRouter = require('./routes/auth.routes');
 app.use('/api/todos', todoRouter);
+app.use('/api/auth', authRouter);
 
 //  Catch 404 and respond with error message
 app.use((req, res, next) => {
