@@ -5,6 +5,7 @@ const User = require('../models/User.model');
 
 // Bcrypt config to encrypt passwords
 const bcrypt = require('bcryptjs');
+const uploader = require('../configs/cloudinary.config');
 const bcryptSalt = 10;
 
 router.post('/signup', (req, res, next) => {
@@ -71,6 +72,13 @@ router.post('/logout', (req, res, next) => {
   // req.logout is defined by passport
   req.logout();
   return res.status(200).json({ message: 'Log out success!'});
+})
+
+router.put('/edit', uploader.single('photo'), (req, res, next) => {
+  console.log(req.file);
+  User.findOneAndUpdate({ _id: req.user.id }, { ...req.body, photo: req.file ? req.file.path : req.user.photo }, { new: true })
+  .then(user => res.status(200).json(user))
+  .catch(error => res.status(500).json(error))
 })
 
 router.get('/loggedin', (req, res, next) => {

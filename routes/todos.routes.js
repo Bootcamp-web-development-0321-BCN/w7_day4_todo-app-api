@@ -15,16 +15,24 @@ router.get("/:id", (req, res, next) => {
   .catch(err => res.status(500).json(err))
 })
 
-router.post("/", (req, res, next) => {
+router.post("/", async (req, res, next) => {
   const { name, description, dueDate, priority } = req.body;
 
   if(!name){
     return res.status(400).json({ message: "Name is required"});
   }
 
-  Todo.create({ name, description, dueDate, priority, user: req.user.id  })
-  .then(todo => res.status(200).json(todo))
-  .catch(err => res.status(500).json(err))
+  try {
+    const todo = await Todo.create({ name, description, dueDate, priority, user: req.user.id  });
+    // const user = await User.findOneAndUpdate({ _id: req.id}, {$push: {todos: todo.id }}, {new: true});
+    return res.status(200).json(todo);
+  } catch(err){
+    return res.status(500).json(err)
+  }
+  
+
+  // .then(todo => res.status(200).json(todo))
+  // .catch(err => res.status(500).json(err))
 })
 
 router.put("/:id", (req, res, next) => {
